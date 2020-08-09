@@ -1,34 +1,31 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-  View,
-  Text,
-} from 'react-native';
-
 import {Provider} from 'react-redux';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {StyleSheet, StatusBar, View, Text} from 'react-native';
 import {store} from './redux/store';
-import InputValues from './containers/InputValues';
+import {HomeScreen} from './containers/HomeScreen';
+import {ProgrammeScreen} from './containers/ProgrammeScreen';
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <>
+    <NavigationContainer>
       <Provider store={store}>
         <StatusBar barStyle="dark-content" />
         <View style={styles.header}>
           <Text style={styles.logo}>5/3/1 App</Text>
         </View>
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            <InputValues />
-          </ScrollView>
-        </SafeAreaView>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
+          <Stack.Screen
+            name="Programme"
+            component={ProgrammeScreen}></Stack.Screen>
+        </Stack.Navigator>
       </Provider>
-    </>
+    </NavigationContainer>
   );
 };
 
@@ -44,9 +41,6 @@ const styles = StyleSheet.create({
   logo: {
     color: '#ffffff',
     fontSize: 30,
-  },
-  scrollView: {
-    backgroundColor: '#f7f1e3',
   },
   container: {
     paddingLeft: 50,

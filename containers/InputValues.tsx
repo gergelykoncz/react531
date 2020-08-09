@@ -4,7 +4,11 @@ import {useSelector} from 'react-redux';
 import {InputBox} from '../components/InputBox';
 import {store, inputSlice, programmeSlice, RootState} from '../redux/store';
 
-const InputValues = () => {
+export interface InputValuesProps {
+  onFinished: () => void;
+}
+
+const InputValues = (props: InputValuesProps) => {
   const military = useSelector((state: RootState) => state.counter.military);
   const deadlift = useSelector((state: RootState) => state.counter.deadlift);
   const bench = useSelector((state: RootState) => state.counter.bench);
@@ -17,6 +21,8 @@ const InputValues = () => {
     store.dispatch(increment({id, value}));
   };
 
+  const {onFinished} = props;
+
   const calculateProgramme = () => {
     store.dispatch(
       calculate({
@@ -26,6 +32,7 @@ const InputValues = () => {
         squat,
       }),
     );
+    onFinished();
   };
 
   return (
