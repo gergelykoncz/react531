@@ -1,18 +1,13 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit';
-
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState: { military: 0, deadlift: 0, bench: 0, squat: 0 },
-  reducers: {
-    increment: (state, action) => ({
-      ...state,
-      [action.payload.id]: action.payload.value
-    }),
-  },
-})
+import {configureStore, combineReducers, Store} from '@reduxjs/toolkit';
+import {programmeSlice} from './programmeSlice';
+import {inputSlice} from './inputSlice';
 
 const store = configureStore({
-  reducer: counterSlice.reducer
+  reducer: combineReducers({
+    counter: inputSlice.reducer,
+    programme: programmeSlice.reducer,
+  }),
 });
 
-export { store, counterSlice };
+export {store, inputSlice, programmeSlice};
+export type RootState = ReturnType<typeof store.getState>;
