@@ -46,14 +46,18 @@ const InputValues = (props: InputValuesProps) => {
   return (
     <>
       <View style={styles.container}>
-        <Switch
-          trackColor={{false: '#767577', true: '#81b0ff'}}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={changePound}
-          value={isPound}
-        />
         <Swiper loop={false} showsPagination={true}>
-          <View>
+          <View style={[styles.switcher, styles.swipePage]}>
+            <Text style={styles.switcherText}>Kilograms</Text>
+            <Switch
+              trackColor={{false: '#767577', true: '#81b0ff'}}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={changePound}
+              value={isPound}
+            />
+            <Text style={styles.switcherText}>Pounds</Text>
+          </View>
+          <View style={styles.swipePage}>
             <InputBox
               value={military}
               onValueChange={(e) => stateChange('military', e)}
@@ -62,7 +66,7 @@ const InputValues = (props: InputValuesProps) => {
             <Barbell weight={military} isPound={isPound}></Barbell>
           </View>
 
-          <View>
+          <View style={styles.swipePage}>
             <InputBox
               value={deadlift}
               onValueChange={(e) => stateChange('deadlift', e)}
@@ -71,7 +75,7 @@ const InputValues = (props: InputValuesProps) => {
             <Barbell weight={deadlift} isPound={isPound}></Barbell>
           </View>
 
-          <View>
+          <View style={styles.swipePage}>
             <InputBox
               value={bench}
               onValueChange={(e) => stateChange('bench', e)}
@@ -80,7 +84,7 @@ const InputValues = (props: InputValuesProps) => {
             <Barbell weight={bench} isPound={isPound}></Barbell>
           </View>
 
-          <View>
+          <View style={styles.swipePage}>
             <InputBox
               value={squat}
               onValueChange={(e) => stateChange('squat', e)}
@@ -99,12 +103,22 @@ const InputValues = (props: InputValuesProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 50,
-    paddingRight: 50,
     marginTop: 50,
   },
   inputBox: {
     marginBottom: 30,
+  },
+  switcher: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  switcherText: {
+    margin: 5,
+  },
+  swipePage: {
+    paddingLeft: 50,
+    paddingRight: 50,
   },
 });
 

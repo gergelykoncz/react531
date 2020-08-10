@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React, {useRef} from 'react';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 export interface RepeatButtonProps {
   title: string;
@@ -7,17 +7,17 @@ export interface RepeatButtonProps {
 }
 
 export const RepeatButton = (props: RepeatButtonProps) => {
-  const { title, onPress } = props;
+  const {title, onPress} = props;
   const timer = useRef(null);
 
-  const pressIn = () => {
+  const pressIn = (timeout: number) => {
     onPress();
-    timer.current = setTimeout(pressIn, 200);
+    timer.current = setTimeout(() => pressIn((timeout -= 10)), timeout);
   };
 
   const pressOut = () => {
     clearTimeout(timer.current);
-  }
+  };
 
   const styles = StyleSheet.create({
     button: {
@@ -27,18 +27,23 @@ export const RepeatButton = (props: RepeatButtonProps) => {
       height: 50,
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     text: {
       color: '#ffffff',
       fontSize: 30,
-      fontWeight: 'bold'
-    }
-  })
+      fontWeight: 'bold',
+    },
+  });
 
-  return (<>
-    <TouchableOpacity style={styles.button} onPressIn={pressIn} onPressOut={pressOut}>
-      <Text style={styles.text}>{title}</Text>
-    </TouchableOpacity>
-  </>);
+  return (
+    <>
+      <TouchableOpacity
+        style={styles.button}
+        onPressIn={() => pressIn(200)}
+        onPressOut={pressOut}>
+        <Text style={styles.text}>{title}</Text>
+      </TouchableOpacity>
+    </>
+  );
 };
