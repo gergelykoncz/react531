@@ -1,6 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {getLeftPlates, getRightPlates} from '../utils/barbellHelper';
+import {
+  getLeftPlates,
+  getRightPlates,
+  calculatePlates,
+} from '../utils/barbellHelper';
+import {BarbellModal} from './BarbellModal';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export interface BarbellProps {
   weight: number;
@@ -8,6 +14,7 @@ export interface BarbellProps {
 }
 
 export const Barbell = (props: BarbellProps) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const showBar = () => {
     return props.isPound ? props.weight >= 45 : props.weight >= 20;
   };
@@ -69,18 +76,26 @@ export const Barbell = (props: BarbellProps) => {
   });
 
   return (
-    <View style={styles.container}>
-      {getLeftPlates(props.weight, props.isPound).map(
-        (plate: string, index: number) => (
-          <View key={index} style={[styles[plate], styles.leftPlate]}></View>
-        ),
-      )}
-      {showBar() && <View style={styles.bar}></View>}
-      {getRightPlates(props.weight, props.isPound).map(
-        (plate: string, index: number) => (
-          <View key={index} style={[styles[plate], styles.rightPlate]}></View>
-        ),
-      )}
-    </View>
+    <>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => setModalVisible(true)}>
+        {getLeftPlates(props.weight, props.isPound).map(
+          (plate: string, index: number) => (
+            <View key={index} style={[styles[plate], styles.leftPlate]}></View>
+          ),
+        )}
+        {showBar() && <View style={styles.bar}></View>}
+        {getRightPlates(props.weight, props.isPound).map(
+          (plate: string, index: number) => (
+            <View key={index} style={[styles[plate], styles.rightPlate]}></View>
+          ),
+        )}
+      </TouchableOpacity>
+      <BarbellModal
+        modalVisible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        plates={calculatePlates(props.weight, props.isPound)}></BarbellModal>
+    </>
   );
 };
