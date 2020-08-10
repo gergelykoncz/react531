@@ -15,9 +15,7 @@ export const HomeScreen = ({navigation}) => {
 
   return (
     <>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.scrollView}>
+      <ScrollView style={styles.scrollView}>
         <InputValues onFinished={() => navigate()} />
       </ScrollView>
     </>

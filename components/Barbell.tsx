@@ -4,9 +4,14 @@ import {getLeftPlates, getRightPlates} from '../utils/barbellHelper';
 
 export interface BarbellProps {
   weight: number;
+  isPound: boolean;
 }
 
 export const Barbell = (props: BarbellProps) => {
+  const showBar = () => {
+    return props.isPound ? props.weight >= 45 : props.weight >= 20;
+  };
+
   const styles = StyleSheet.create({
     container: {
       display: 'flex',
@@ -59,13 +64,17 @@ export const Barbell = (props: BarbellProps) => {
 
   return (
     <View style={styles.container}>
-      {getLeftPlates(props.weight).map((plate: string, index: number) => (
-        <View key={index} style={[styles[plate], styles.leftPlate]}></View>
-      ))}
-      <View style={styles.bar}></View>
-      {getRightPlates(props.weight).map((plate: string, index: number) => (
-        <View key={index} style={[styles[plate], styles.rightPlate]}></View>
-      ))}
+      {getLeftPlates(props.weight, props.isPound).map(
+        (plate: string, index: number) => (
+          <View key={index} style={[styles[plate], styles.leftPlate]}></View>
+        ),
+      )}
+      {showBar() && <View style={styles.bar}></View>}
+      {getRightPlates(props.weight, props.isPound).map(
+        (plate: string, index: number) => (
+          <View key={index} style={[styles[plate], styles.rightPlate]}></View>
+        ),
+      )}
     </View>
   );
 };
