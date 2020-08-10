@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
 import {ExerciseProgramme} from '../components/ExerciseProgramme';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export const ProgrammeScreen = () => {
   const military = useSelector((state: RootState) => state.programme.military);
@@ -11,10 +12,12 @@ export const ProgrammeScreen = () => {
 
   return (
     <>
-      <ExerciseProgramme name="Military Press" training={military} />
-      <ExerciseProgramme name="Deadlift" training={deadlift} />
-      <ExerciseProgramme name="Bench Press" training={bench} />
-      <ExerciseProgramme name="Squat" training={squat} />
+      <ScrollView>
+        <ExerciseProgramme name="Military Press" training={military} />
+        <ExerciseProgramme name="Deadlift" training={deadlift} />
+        <ExerciseProgramme name="Bench Press" training={bench} />
+        <ExerciseProgramme name="Squat" training={squat} />
+      </ScrollView>
     </>
   );
 };

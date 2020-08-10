@@ -3,6 +3,7 @@ import {StyleSheet, View, Button} from 'react-native';
 import {useSelector} from 'react-redux';
 import {InputBox} from '../components/InputBox';
 import {store, inputSlice, programmeSlice, RootState} from '../redux/store';
+import {Barbell} from '../components/Barbell';
 
 export interface InputValuesProps {
   onFinished: () => void;
@@ -43,21 +44,29 @@ const InputValues = (props: InputValuesProps) => {
           onValueChange={(e) => stateChange('military', e)}
           style={styles.inputBox}
           title="Military Press"></InputBox>
+        <Barbell weight={military}></Barbell>
+
         <InputBox
           value={deadlift}
           onValueChange={(e) => stateChange('deadlift', e)}
           style={styles.inputBox}
           title="Deadlift"></InputBox>
+        <Barbell weight={deadlift}></Barbell>
+
         <InputBox
           value={bench}
           onValueChange={(e) => stateChange('bench', e)}
           style={styles.inputBox}
           title="Bench Press"></InputBox>
+        <Barbell weight={bench}></Barbell>
+
         <InputBox
           value={squat}
           onValueChange={(e) => stateChange('squat', e)}
           style={styles.inputBox}
           title="Squat"></InputBox>
+        <Barbell weight={squat}></Barbell>
+
         <Button
           title="Calculate Programme"
           onPress={() => calculateProgramme()}></Button>
@@ -70,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 50,
     paddingRight: 50,
-    marginTop: 100,
+    marginTop: 50,
   },
   inputBox: {
     marginBottom: 30,

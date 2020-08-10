@@ -18,8 +18,8 @@ export const ExerciseProgramme = (props: ExerciseProgrammeProps) => {
           <Text>Week {val.week}</Text>
           {val.sets.map((set: WorkingSet) => (
             <View style={{flexDirection: 'row'}}>
-              <Text>Reps {set.reps}</Text>
-              <Text>Weight {set.weight}</Text>
+              <Text>{set.reps} X </Text>
+              <Text>{set.weight}</Text>
             </View>
           ))}
         </>
